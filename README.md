@@ -12,3 +12,8 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンはLuaLaTeX�
 \pagestyle{}
 ~~~
 で指定。
+### 一覧
+|見出しoption|目次オプション|ヘッダ、フッタ|
+|---|---|---|
+|secstyle=1|toc=normal|myps1|
+|secstyle=2|toc=1|myps2|
