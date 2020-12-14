@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{ltjsarticle}
-\ProvidesPackage{YudaiSukegawa}
+\ProvidesPackage{mydocstyle}
 
 \RequirePackage{luatexja}
 \RequirePackage[truedimen,margin=2.1cm]{geometry}
@@ -160,9 +160,6 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \crefmultiformat{subsubsection}{#2#1#3{節}}{, #2#1#3{節}}{, #2#1#3}{, #2#1#3{節}}%
 \creflabelformat{enumerate}{#2#1#3}
 
-\crefformat{part}{{第}#2#1#3{部}}%
-\crefformat{chapter}{{第}#2#1#3{章}}%
-
 \newpagestyle{myps1}[]{
 	\sethead{}{}{}
 	\setfoot{}{\begin{tikzpicture}
@@ -176,6 +173,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 	\end{tikzpicture}}{\S\,\thesection\quad\sectiontitle}{}
 	\setfoot{}{\large\thepage}{}
 }
+
 \renewcommand*{\figurename}{\faIcon{arrow-circle-up}図}
 \renewcommand*{\tablename}{\faIcon{arrow-circle-down}表}
 \newcommand*{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
