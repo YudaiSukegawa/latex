@@ -1,6 +1,6 @@
 # latex
 ## 概要
-LaTeXに関する色々。ほぼ全てのファイルはエンジンはLuaLaTeXを使用　している。
+LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeXを使用している。
 
 無断で使用可能。
 ## mydocstyle.sty
@@ -13,7 +13,7 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンはLuaLaTeX�
 ~~~
 で指定。
 ### 一覧
-|見出しoption|目次option|ヘッダ、フッタ|
+|見出しoption|目次option|ヘッダ、フッタ(pagestyle)|
 |---|---|---|
 |secstyle=1|toc=normal|myps1|
 |secstyle=2|toc=1|myps2|
