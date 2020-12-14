@@ -15,5 +15,5 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeX�
 ### 一覧
 |見出しoption|目次option|ヘッダ、フッタ(pagestyle)|
 |---|---|---|
-|secstyle=1|toc=normal|myps1|
+|secstyle=1|toc=normal(default)|myps1|
 |secstyle=2|toc=1|myps2|
