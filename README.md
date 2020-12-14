@@ -17,3 +17,4 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeX�
 |---|---|---|
 |secstyle=1|toc=normal(default)|myps1|
 |secstyle=2|toc=1|myps2|
+|secstyle=3| |myps3|
