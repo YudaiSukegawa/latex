@@ -1,5 +1,4 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{ltjsarticle}
 \ProvidesPackage{YSdocstyle}
 
 \RequirePackage{luatexja}
@@ -8,7 +7,7 @@
 \RequirePackage[luatex,table,hyperref]{xcolor}
 \RequirePackage{amssymb,mathtools,bm}
 \RequirePackage{float}
-\RequirePackage[unicode=true,setpagesize=false,linktoc=all,%
+\RequirePackage[unicode=true,linktoc=all,%
 bookmarksnumbered=true,bookmarksopen=true,%
 colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \RequirePackage[nameinlink]{cleveref}
@@ -24,14 +23,23 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \RequirePackage{varwidth}
 \RequirePackage[explicit,pagestyles]{titlesec}
 \RequirePackage{titletoc}
+\newif\if@link
+\@linkfalse
 
-\DeclareOption{secstyle=1}{
+\DeclareOption{withlink}{\@linktrue}
+
+\DeclareOption{sec=normal}{
+	\titleformat{\section}[hang]{\normalfont\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi}[]
+	\titleformat{name=\section,numberless}[hang]{\normalfont\large\bfseries}{#1}{0pt}{\hfill\if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi}[]
+}
+
+\DeclareOption{sec=1}{
 	\titleformat{\section}[display]{\normalfont\Large\bfseries}{}{0pt}{
 		\begin{tcolorbox}[enhanced,top=3mm,bottom=3mm,spread sidewards,
 			frame style={left color=black,right color=cyan!60!},coltext=white,interior hidden,
 			fuzzy shadow={0mm}{-1mm}{-1.5mm}{0.4mm}{black},borderline horizontal={3pt}{0pt}{black},
 			borderline north={2pt}{6pt}{black},borderline south={2pt}{6pt}{black}]
-			\hspace*{1cm}\thesection　#1
+			\hspace*{0.14\paperwidth}\thesection~~#1\hfill\if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi
 		\end{tcolorbox}
 	}[]
 	\titleformat{\subsection}[display]{\normalfont\large\bfseries}{}{0pt}{
@@ -39,7 +47,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 			frame style={left color=black,right color=yellow!50!white},interior hidden,
 			borderline horizontal={2pt}{0pt}{black},
 			borderline north={1pt}{3pt}{black},borderline south={1pt}{3pt}{black}]
-			\hspace*{1.5cm}\thesubsection　#1
+			\hspace*{0.14\paperwidth}\thesubsection~~#1
 		\end{tcolorbox}
 	}[]
 	\titleformat{name=\section,numberless}[display]{\normalfont\Large\bfseries}{}{0pt}{
@@ -47,7 +55,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 			frame style={left color=white,right color=yellow!50!gray!60!white},interior hidden,
 			borderline horizontal={3pt}{0pt}{black},
 			borderline north={2pt}{6pt}{black},borderline south={2pt}{6pt}{black}]
-			\hspace*{1cm}#1
+			\hspace*{0.14\paperwidth}#1\hfill\if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi
 		\end{tcolorbox}
 	}[]
 	\titleformat{name=\subsection,numberless}[display]{\normalfont\large\bfseries}{}{0pt}{
@@ -55,14 +63,14 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 			frame style={left color=black,right color=yellow!50!white},interior hidden,
 			borderline horizontal={2pt}{0pt}{black},
 			borderline north={1pt}{3pt}{black},borderline south={1pt}{3pt}{black}]
-			\hspace*{1.5cm}#1
+			\hspace*{0.14\paperwidth}#1
 		\end{tcolorbox}
 	}[]
 \titlespacing{\section}{0pt}{-4mm}{-4mm}
 \titlespacing{\subsection}{0pt}{-4mm}{-4mm}
 }
 
-\DeclareOption{secstyle=2}{
+\DeclareOption{sec=2}{
 \titleformat{\section}[hang]{\Large\bfseries}{}{0pt}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
 		\edef\tmp{\pgfmathresult}
@@ -91,23 +99,12 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \titlespacing{\section}{0pt}{8mm}{-4mm}
 }
 
-\DeclareOption{secstyle=3}{
-\titleformat{\section}[hang]{\normalfont\large\bfseries}{}{0pt}{
-\thesubsection　#1\hfill\Acrobatmenu{FirstPage}{\tiny 目次へ戻る}
-}[]
-\titleformat{name=\section,numberless}[hang]{\normalfont\large\bfseries}{}{0pt}{
-#1\hfill\Acrobatmenu{FirstPage}{\tiny 目次へ戻る}
-}[]
-}
-
 \DeclareOption{toc=normal}{
 \titlecontents{section}[1.5em]{}{\makebox[9mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
 \titlecontents{subsection}[4em]{}{\makebox[12mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
 \titlecontents{subsubsection}[6.5em]{}{\makebox[12mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
-\makeatletter
 \renewcommand{\tableofcontents}[1][orange]{%
 	\makebox[\linewidth][c]{\Large\bfseries 目次}	\@starttoc{toc}}
-\makeatother
 }
 
 \DeclareOption{toc=1}{
@@ -120,11 +117,9 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 	boxed title style={boxrule=0.5mm, frame code={ \path[tcb fill frame] ([xshift=-6mm]frame.west) -- (frame.north west) -- (frame.north east) -- ([xshift=6mm]frame.east) -- (frame.south east) -- (frame.south west) -- cycle; }, 
 		interior code={ \path[tcb fill interior] ([xshift=-3mm]interior.west) -- (interior.north west) -- (interior.north east) -- ([xshift=3mm]interior.east) -- (interior.south east) -- (interior.south west) -- cycle;} },
 	title={#2},#4}
-\makeatletter
 \renewcommand{\tableofcontents}[1][orange]{%
 	\begin{shapebox2}[#1]{目次}"Contents"[drop fuzzy shadow,breakable]
 		\@starttoc{toc}\end{shapebox2}}
-\makeatother
 }
 
 \ExecuteOptions{toc=normal}
@@ -169,28 +164,27 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \crefformat{subsubsection}{#2#1#3{節}}%
 \crefrangeformat{subsubsection}{#3#1#4{〜}#5#2#6{節}}%
 \crefmultiformat{subsubsection}{#2#1#3{節}}{, #2#1#3{節}}{, #2#1#3}{, #2#1#3{節}}%
-\creflabelformat{enumerate}{#2#1#3}
 
 \crefformat{part}{{第}#2#1#3{部}}%
 \crefformat{chapter}{{第}#2#1#3{章}}%
 
-\newpagestyle{myps1}[]{
-	\sethead{}{}{}
+\newpagestyle{ps=1}[]{
+	\sethead{}{}{\if@link \Acrobatmenu{PrevPage}{Previous Page}\else \fi}
 	\setfoot{}{\begin{tikzpicture}
 			\tikzling[scale=0.5,speech={\thepage}]
-	\end{tikzpicture}}{}
+	\end{tikzpicture}}{\if@link \Acrobatmenu{NextPage}{Next Page}\else \fi}
 }
-\newpagestyle{myps2}[]{
+\newpagestyle{ps=2}[]{
 	\sethead{\begin{tikzpicture}[remember picture,overlay]
 			\fill[top color=green!60!] (current page.north east) rectangle ([yshift=-\paperwidth/8]current page.north west);
 			\fill[bottom color=yellow!60!,top color=white] (current page.south east) rectangle ([yshift=\paperwidth/8]current page.south west);
-	\end{tikzpicture}}{\S\,\thesection\quad\sectiontitle}{}
-	\setfoot{}{\large\thepage}{}
+	\end{tikzpicture}}{\S\,\thesection\quad\sectiontitle}{\if@link \Acrobatmenu{PrevPage}{Previous Page}\else \fi}
+	\setfoot{}{\large\thepage}{\if@link \Acrobatmenu{NextPage}{Next Page}\else \fi}
 }
-\newpagestyle{myps3}[]{
-	\sethead{}{\thesection~~\sectiontitle}{\Acrobatmenu{PrevPage}{Previous Page}}
+\newpagestyle{normalps}[]{
+	\sethead{}{\thesection~~\sectiontitle}{\if@link \Acrobatmenu{PrevPage}{Previous Page}\else \fi}
 	\headrule\footrule
-	\setfoot{}{\thepage}{\Acrobatmenu{NextPage}{Next Page}}
+	\setfoot{}{\thepage}{\if@link \Acrobatmenu{NextPage}{Next Page}\else \fi}
 }
 
 \renewcommand*{\figurename}{\faIcon{arrow-circle-up}図}
@@ -209,7 +203,6 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		}\fi%
 	}\fi
 }
-\newcommand*{\refEq}[1]{(~\ref{#1})式}
 \newcommand{\paren}[1]{\left(#1\right)}
 \newcommand{\curly}[1]{\left\{#1\right\}}
 \newcommand{\bracket}[1]{\left[#1\right]}
@@ -220,15 +213,6 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\includegraphics[#1]{#2}
 		\caption{#3}\label{#4}
 	\end{figure}%
-}
-\newcommand{\mytab}[4]{%
-	\begin{table}[H]
-		\centering
-		\caption{#3}\label{#4}
-		\begin{tabular}{#1}
-			#2
-		\end{tabular}
-	\end{table}%
 }
 \newcommand{\doufig}[7][keepaspectratio,width=0.8\linewidth]{%
 	\begin{figure}[H]
