@@ -21,5 +21,5 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeX�
 posはl(left),c(center,default),r(right)から選択する。
 - toc=1オプションでは目次の色を変えることができる。`\tableofcontents[color]`
 ### その他のオプション
-1. withlink
-  - 見出しとヘッダ、フッタの横にページをまたぐリンクを設置。
+1. withlink  
+見出しとヘッダ、フッタの横にページをまたぐリンクを設置。
