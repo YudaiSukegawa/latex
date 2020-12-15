@@ -16,8 +16,8 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeX�
 |見出しoption|目次option|ヘッダ、フッタ(pagestyle)|
 |---|---|---|
 |sec=normal|toc=normal(default)|normalps|
-|sec=1|toc=1|myps2|
-|sec=2| |myps3|
+|sec=1|toc=1|ps=2|
+|sec=2| |ps=3|
 ### その他のオプション
 1.withlink
-  見出しとヘッダ、フッタの横にページをまたぐリンクを設置。
+  -見出しとヘッダ、フッタの横にページをまたぐリンクを設置。
