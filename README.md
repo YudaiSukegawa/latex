@@ -12,9 +12,12 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeX�
 \pagestyle{}
 ~~~
 で指定。
-### 一覧
+#### 一覧
 |見出しoption|目次option|ヘッダ、フッタ(pagestyle)|
 |---|---|---|
-|secstyle=1|toc=normal(default)|myps1|
-|secstyle=2|toc=1|myps2|
-|secstyle=3| |myps3|
+|sec=normal|toc=normal(default)|normalps|
+|sec=1|toc=1|myps2|
+|sec=2| |myps3|
+### その他のオプション
+1.withlink
+  見出しとヘッダ、フッタの横にページをまたぐリンクを設置。
