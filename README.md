@@ -19,9 +19,9 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeX�
 |sec=1|toc=1|ps=1|
 |sec=2| |ps=2|
 #### 補足
-- toc=normalオプションでは見出しの「目次」の表示位置を変えることができる。' \tableofcontents[pos] '
+- toc=normalオプションでは見出しの「目次」の表示位置を変えることができる。` \tableofcontents[pos] `
 - posはl(left),c(center,default),r(right)から選択する。
-toc=1オプションでは目次の色を変えることができる。' \tableofcontents[color] '
+toc=1オプションでは目次の色を変えることができる。` \tableofcontents[color] `
 ### その他のオプション
 1. withlink
   - 見出しとヘッダ、フッタの横にページをまたぐリンクを設置。
