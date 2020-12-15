@@ -1,11 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
+%\ProvidesClass{ltjsarticle}
 \ProvidesPackage{YSdocstyle}
 
 \RequirePackage{luatexja}
 \RequirePackage[truedimen,margin=0.14\paperwidth]{geometry}
 \RequirePackage[luatex]{graphicx}
 \RequirePackage[luatex,table,hyperref]{xcolor}
-\RequirePackage{amssymb,mathtools,bm}
+\RequirePackage{amssymb,mathtools}
 \RequirePackage{float}
 \RequirePackage[unicode=true,linktoc=all,%
 bookmarksnumbered=true,bookmarksopen=true,%
@@ -66,12 +67,12 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 			\hspace*{0.14\paperwidth}#1
 		\end{tcolorbox}
 	}[]
-\titlespacing{\section}{0pt}{-4mm}{-4mm}
-\titlespacing{\subsection}{0pt}{-4mm}{-4mm}
+\titlespacing{\section}{0pt}{-2em}{-2em}
+\titlespacing{\subsection}{0pt}{-2em}{-2em}
 }
 
 \DeclareOption{sec=2}{
-\titleformat{\section}[hang]{\Large\bfseries}{}{0pt}{\begin{tikzpicture}
+\titleformat{\section}[hang]{\Large\bfseries}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
 		\edef\tmp{\pgfmathresult}
 		\pgfmathparse{100*rnd}
@@ -79,13 +80,13 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {\thesection~~#1};
+		\node at (\linewidth-2em,0.5) {\small \if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi};
 	\end{tikzpicture}
-}[]
+}{0pt}{}[]
 \titleformat{\subsection}[hang]{\normalfont\large\bfseries}{}{0pt}{
 	\thesubsection　#1
 }[]
-\titleformat{name=\section,numberless}[hang]{\LARGE\bfseries}{}{0pt}{
-	\begin{tikzpicture}
+\titleformat{name=\section,numberless}[hang]{\Large\bfseries}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
 		\edef\tmp{\pgfmathresult}
 		\pgfmathparse{100*rnd}
@@ -93,18 +94,19 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {#1};
+		\node at (\linewidth-2em,0.5) {\small \if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi};
 	\end{tikzpicture}
-}[]
+}{0pt}{}[]
 \titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{}{0pt}{ #1 }[]
-\titlespacing{\section}{0pt}{8mm}{-4mm}
+\titlespacing{\section}{0pt}{4mm}{2mm}
 }
 
 \DeclareOption{toc=normal}{
 \titlecontents{section}[1.5em]{}{\makebox[9mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
 \titlecontents{subsection}[4em]{}{\makebox[12mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
 \titlecontents{subsubsection}[6.5em]{}{\makebox[12mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
-\renewcommand{\tableofcontents}[1][orange]{%
-	\makebox[\linewidth][c]{\Large\bfseries 目次}	\@starttoc{toc}}
+\renewcommand{\tableofcontents}[1][c]{%
+	\makebox[\linewidth][#1]{\Large\bfseries 目次}\@starttoc{toc}}
 }
 
 \DeclareOption{toc=1}{
@@ -140,7 +142,6 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \crefname{subfigure}{図}{図}%
 \crefname{table}{表}{表}%
 \crefname{subtable}{表}{表}%
-\crefname{enumerate}{}{}%
 
 \crefname{appendix}{付録}{付録}%
 \crefname{subappendix}{付録}{付録}%
@@ -165,16 +166,13 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \crefrangeformat{subsubsection}{#3#1#4{〜}#5#2#6{節}}%
 \crefmultiformat{subsubsection}{#2#1#3{節}}{, #2#1#3{節}}{, #2#1#3}{, #2#1#3{節}}%
 
-\crefformat{part}{{第}#2#1#3{部}}%
-\crefformat{chapter}{{第}#2#1#3{章}}%
-
-\newpagestyle{ps=1}[]{
-	\sethead{}{}{\if@link \Acrobatmenu{PrevPage}{Previous Page}\else \fi}
-	\setfoot{}{\begin{tikzpicture}
-			\tikzling[scale=0.5,speech={\thepage}]
-	\end{tikzpicture}}{\if@link \Acrobatmenu{NextPage}{Next Page}\else \fi}
-}
 \newpagestyle{ps=2}[]{
+	\sethead{}{}{\if@link \Acrobatmenu{PrevPage}{Previous Page}\else \fi}
+	\setfoot{}{\raisebox{-1em}{\begin{tikzpicture}
+			\tikzling[scale=0.5,speech={\thepage}]
+	\end{tikzpicture}}}{\if@link \Acrobatmenu{NextPage}{Next Page}\else \fi}
+}
+\newpagestyle{ps=1}[]{
 	\sethead{\begin{tikzpicture}[remember picture,overlay]
 			\fill[top color=green!60!] (current page.north east) rectangle ([yshift=-\paperwidth/8]current page.north west);
 			\fill[bottom color=yellow!60!,top color=white] (current page.south east) rectangle ([yshift=\paperwidth/8]current page.south west);
