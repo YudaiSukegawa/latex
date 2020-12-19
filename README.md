@@ -13,7 +13,7 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeX�
 #### 一覧
 |見出しoption|目次option|ヘッダ、フッタ(pagestyle)|
 |---|---|---|
-|sec=normal|toc=normal(default)|ps=normal|
+|sec=normal|toc=normal(default)|normalps|
 |sec=1|toc=1|ps=1|
 |sec=2| |ps=2|
 #### 補足
@@ -22,4 +22,4 @@ posはl(left),c(center,default),r(right)から選択する。
 - toc=1オプションでは目次の色を変えることができる。`\tableofcontents[color]`
 ### その他のオプション
 1. withlink  
-見出しとヘッダ、フッタの横にページをまたぐリンクを設置。
+見出しの横に目次ページへのリンクを設置。
