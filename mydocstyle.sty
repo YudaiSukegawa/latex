@@ -30,8 +30,8 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \DeclareOption{withlink}{\@linktrue}
 
 \DeclareOption{sec=normal}{
-	\titleformat{\section}[hang]{\normalfont\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi}[]
-	\titleformat{name=\section,numberless}[hang]{\normalfont\large\bfseries}{#1}{0pt}{\hfill\if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi}[]
+	\titleformat{\section}[hang]{\normalfont\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi}[]
+	\titleformat{name=\section,numberless}[hang]{\normalfont\large\bfseries}{#1}{0pt}{\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi}[]
 }
 
 \DeclareOption{sec=1}{
@@ -40,7 +40,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 			frame style={left color=black,right color=cyan!60!},coltext=white,interior hidden,
 			fuzzy shadow={0mm}{-1mm}{-1.5mm}{0.4mm}{black},borderline horizontal={3pt}{0pt}{black},
 			borderline north={2pt}{6pt}{black},borderline south={2pt}{6pt}{black}]
-			\hspace*{0.14\paperwidth}\thesection~~#1\hfill\if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi
+			\hspace*{0.14\paperwidth}\thesection~~#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi
 		\end{tcolorbox}
 	}[]
 	\titleformat{\subsection}[display]{\normalfont\large\bfseries}{}{0pt}{
@@ -56,7 +56,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 			frame style={left color=white,right color=yellow!50!gray!60!white},interior hidden,
 			borderline horizontal={3pt}{0pt}{black},
 			borderline north={2pt}{6pt}{black},borderline south={2pt}{6pt}{black}]
-			\hspace*{0.14\paperwidth}#1\hfill\if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi
+			\hspace*{0.14\paperwidth}#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi
 		\end{tcolorbox}
 	}[]
 	\titleformat{name=\subsection,numberless}[display]{\normalfont\large\bfseries}{}{0pt}{
@@ -75,26 +75,26 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \titleformat{\section}[hang]{\Large\bfseries}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
 		\edef\tmp{\pgfmathresult}
-		\pgfmathparse{100*rnd}
+		\pgfmathparse{100*sin(rnd*pi/2 r)}
 		\edef\tmq{\pgfmathresult}
 		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {\thesection~~#1};
-		\node at (\linewidth-2em,0.5) {\small \if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi};
+		\node at (\linewidth-2em,0.5) {\small \if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi};
 	\end{tikzpicture}
 }{0pt}{}[]
 \titleformat{\subsection}[hang]{\normalfont\large\bfseries}{}{0pt}{
-	\thesubsection　#1
+\thesubsection　#1
 }[]
 \titleformat{name=\section,numberless}[hang]{\Large\bfseries}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
 		\edef\tmp{\pgfmathresult}
-		\pgfmathparse{100*rnd}
+		\pgfmathparse{100*sin(rnd*pi/2 r)}
 		\edef\tmq{\pgfmathresult}
 		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {#1};
-		\node at (\linewidth-2em,0.5) {\small \if@link \Acrobatmenu{FirstPage}{\small 目次へ戻る}\else \fi};
+		\node at (\linewidth-2em,0.5) {\small \if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi};
 	\end{tikzpicture}
 }{0pt}{}[]
 \titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{}{0pt}{ #1 }[]
@@ -102,17 +102,11 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 }
 
 \DeclareOption{toc=normal}{
-\titlecontents{section}[1.5em]{}{\makebox[9mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
-\titlecontents{subsection}[4em]{}{\makebox[12mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
-\titlecontents{subsubsection}[6.5em]{}{\makebox[12mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
 \renewcommand{\tableofcontents}[1][c]{%
-	\makebox[\linewidth][#1]{\Large\bfseries 目次}\@starttoc{toc}}
+\hypertarget{mokuji}{}\makebox[\linewidth][#1]{\Large\bfseries 目次}\@starttoc{toc}}
 }
 
 \DeclareOption{toc=1}{
-\titlecontents{section}[1.5em]{}{\makebox[9mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
-\titlecontents{subsection}[4em]{}{\makebox[12mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
-\titlecontents{subsubsection}[6.5em]{}{\makebox[12mm][l]{\thecontentslabel}}{}{\titlerule*{・}　\thecontentspage}
 \DeclareTColorBox{shapebox2}{ O{blue} m d"" !O{} }{enhanced,colframe=#1!50!black,colback=#1!10!white,
 	colbacktitle=#1!5!yellow!10!white, fonttitle=\large\bfseries,coltitle=black,IfValueTF={#3}{watermark text={#3}}{},
 	attach boxed title to top center= {yshift=-0.25mm-\tcboxedtitleheight/2,yshifttext=2mm-\tcboxedtitleheight/2}, 
@@ -120,12 +114,16 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		interior code={ \path[tcb fill interior] ([xshift=-3mm]interior.west) -- (interior.north west) -- (interior.north east) -- ([xshift=3mm]interior.east) -- (interior.south east) -- (interior.south west) -- cycle;} },
 	title={#2},#4}
 \renewcommand{\tableofcontents}[1][orange]{%
-	\begin{shapebox2}[#1]{目次}"Contents"[drop fuzzy shadow,breakable]
-		\@starttoc{toc}\end{shapebox2}}
+\hypertarget{mokuji}{}\begin{shapebox2}[#1]{目次}"Contents"[drop fuzzy shadow,breakable]
+\@starttoc{toc}\end{shapebox2}}
 }
 
 \ExecuteOptions{toc=normal}
 \ProcessOptions\relax
+
+\titlecontents{section}[1em]{}{\makebox[2em][l]{\thecontentslabel}}{}{\titlerule*[1em]{・}　\thecontentspage}
+\titlecontents{subsection}[3em]{}{\makebox[2.5em][l]{\thecontentslabel}}{}{\titlerule*[1em]{・}　\thecontentspage}
+\titlecontents{subsubsection}[5.5em]{}{\makebox[3em][l]{\thecontentslabel}}{}{\titlerule*[1em]{・}　\thecontentspage}
 
 \newcommand{\crefrangeconjunction}{{〜}}%
 \newcommand{\crefrangepreconjunction}{}%
@@ -167,22 +165,22 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \crefmultiformat{subsubsection}{#2#1#3{節}}{, #2#1#3{節}}{, #2#1#3}{, #2#1#3{節}}%
 
 \newpagestyle{ps=2}[]{
-	\sethead{}{}{\if@link \Acrobatmenu{PrevPage}{Previous Page}\else \fi}
+	\sethead{}{}{}
 	\setfoot{}{\raisebox{-1em}{\begin{tikzpicture}
 			\tikzling[scale=0.5,speech={\thepage}]
-	\end{tikzpicture}}}{\if@link \Acrobatmenu{NextPage}{Next Page}\else \fi}
+	\end{tikzpicture}}}{}
 }
 \newpagestyle{ps=1}[]{
 	\sethead{\begin{tikzpicture}[remember picture,overlay]
 			\fill[top color=green!60!] (current page.north east) rectangle ([yshift=-\paperwidth/8]current page.north west);
 			\fill[bottom color=yellow!60!,top color=white] (current page.south east) rectangle ([yshift=\paperwidth/8]current page.south west);
-	\end{tikzpicture}}{\S\,\thesection\quad\sectiontitle}{\if@link \Acrobatmenu{PrevPage}{Previous Page}\else \fi}
-	\setfoot{}{\large\thepage}{\if@link \Acrobatmenu{NextPage}{Next Page}\else \fi}
+	\end{tikzpicture}}{\S\,\thesection\quad\sectiontitle}{}
+	\setfoot{}{\large\thepage}{}
 }
 \newpagestyle{normalps}[]{
-	\sethead{}{\thesection~~\sectiontitle}{\if@link \Acrobatmenu{PrevPage}{Previous Page}\else \fi}
+	\sethead{}{\thesection~~\sectiontitle}{}
 	\headrule\footrule
-	\setfoot{}{\thepage}{\if@link \Acrobatmenu{NextPage}{Next Page}\else \fi}
+	\setfoot{}{\thepage}{}
 }
 
 \renewcommand*{\figurename}{\faIcon{arrow-circle-up}図}
