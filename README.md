@@ -23,3 +23,14 @@ posはl(left),c(center,default),r(right)から選択する。
 ### その他のオプション
 1. withlink  
 見出しの横に目次ページへのリンクを設置。
+
+## YSdsforrep.sty
+### 内容
+mydocstyle.styのltjsreportクラス用。
+### 使用方法
+基本的に前と同じ。
+### その他のオプション
+1. withlink  
+章見出しの横に目次ページへのリンクを設置。節見出しの横には章見出しへのリンク。
+2. partialtoc  
+章見出しごとに小目次を作成する。
