@@ -77,33 +77,34 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\edef\tmp{\pgfmathresult}
 		\pgfmathparse{100*sin(rnd*pi/2 r)}
 		\edef\tmq{\pgfmathresult}
-		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth,1);
+		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth-3pt,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {\thesection~~#1};
 		\node at (\linewidth-2em,0.5) {\small \if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi};
 	\end{tikzpicture}
-}{0pt}{}[]
+}{-7pt}{}[]
 \titleformat{\subsection}[hang]{\normalfont\large\bfseries}{}{0pt}{
-\thesubsection　#1
+\thesubsection\quad#1
 }[]
 \titleformat{name=\section,numberless}[hang]{\Large\bfseries}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
 		\edef\tmp{\pgfmathresult}
 		\pgfmathparse{100*sin(rnd*pi/2 r)}
 		\edef\tmq{\pgfmathresult}
-		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth,1);
+		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth-3pt,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {#1};
 		\node at (\linewidth-2em,0.5) {\small \if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi};
 	\end{tikzpicture}
-}{0pt}{}[]
-\titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{}{0pt}{ #1 }[]
+}{-7pt}{}[]
+\titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{}{0pt}{#1}[]
 \titlespacing{\section}{0pt}{4mm}{2mm}
 }
 
 \DeclareOption{toc=normal}{
 \renewcommand{\tableofcontents}[1][c]{%
-\hypertarget{mokuji}{}\makebox[\linewidth][#1]{\Large\bfseries 目次}\@starttoc{toc}}
+\hypertarget{mokuji}{}\noindent
+\makebox[\linewidth][#1]{\Large\bfseries 目次}\bigskip\@starttoc{toc}\bigskip}
 }
 
 \DeclareOption{toc=1}{
@@ -121,8 +122,8 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \ExecuteOptions{toc=normal}
 \ProcessOptions\relax
 
-\titlecontents{section}[1em]{}{\makebox[2em][l]{\thecontentslabel}}{}{\titlerule*[1em]{・}　\thecontentspage}
-\titlecontents{subsection}[3em]{}{\makebox[2.5em][l]{\thecontentslabel}}{}{\titlerule*[1em]{・}　\thecontentspage}
+\titlecontents{section}[1em]{}{\makebox[2em][l]{\thecontentslabel}}{}{\quad\titlerule*[1em]{・}　\thecontentspage}
+\titlecontents{subsection}[3em]{}{\makebox[2.5em][l]{\thecontentslabel}}{}{\quad\titlerule*[1em]{・}　\thecontentspage}
 \titlecontents{subsubsection}[5.5em]{}{\makebox[3em][l]{\thecontentslabel}}{}{\titlerule*[1em]{・}　\thecontentspage}
 
 \newcommand{\crefrangeconjunction}{{〜}}%
