@@ -15,7 +15,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \RequirePackage[nameinlink]{cleveref}
 \RequirePackage{caption}
 
-\RequirePackage{tcolorbox,tikzlings}
+\RequirePackage{tcolorbox,tikzlings,fontawesome5}
 \tcbuselibrary{raster,skins,xparse,breakable}
 \usetikzlibrary{shadings,calc}
 \RequirePackage{varwidth}
@@ -39,9 +39,9 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \DeclareOption{withlink}{\@linktrue}
 %
 \DeclareOption{sec=normal}{
-\titleformat{\chapter}[display]{\huge\bfseries}{\hypertarget{mokuji\thechapter}{}第\thechapter 章}{1ex}{#1\hfill\if@link \hyperlink{mokuji}{\footnotesize\color{magenta}目次へ戻る}\else \fi}[\if@ptc{\PartialToc}\else \fi]
-\titleformat{\section}[hang]{\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}章の最初へ}\else \fi}[]
-\titleformat{name=\section,numberless}[hang]{\large\bfseries}{#1}{0pt}{\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}章の最初へ}\else \fi}[]
+\titleformat{\chapter}[display]{\huge\bfseries}{\hypertarget{mokuji\thechapter}{}第\thechapter 章}{1ex}{#1\hfill\if@link \hyperlink{mokuji}{\footnotesize\color{magenta}\faIcon{reply-all}}\else \fi}[\if@ptc{\PartialToc}\else \fi]
+\titleformat{\section}[hang]{\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}\faIcon{reply}}\else \fi}[]
+\titleformat{name=\section,numberless}[hang]{\large\bfseries}{#1}{0pt}{\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}\faIcon{reply}}\else \fi}[]
 }
 %
 \DeclareOption{sec=1}{
@@ -50,23 +50,32 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		drop fuzzy shadow south,frame style image=goldshade.png,
 		interior hidden,borderline horizontal={4pt}{0pt}{black},
 		borderline north={2pt}{6pt}{black},borderline south={2pt}{6pt}{black}]
-		\centering 第\thechapter 章\\\bigskip#1\if@link \\\vspace{-1em}\hfill\hyperlink{mokuji}{\footnotesize\color{magenta}目次へ戻る}\else\fi
+		\centering 第\thechapter 章\\\bigskip#1\if@link \\\vspace{-1em}\hfill\hyperlink{mokuji}{\footnotesize\color{magenta}\faIcon{reply-all}}\else\fi
 	\end{tcolorbox}
 \vspace{-2em}}[\if@ptc{\PartialToc}\else \fi]
 \titleformat{\section}[display]{\normalfont\large\bfseries}{}{0pt}{
 	\begin{tcolorbox}[enhanced,drop fuzzy shadow south,arc=2mm,
 		frame style image=blueshade.png,interior hidden,coltext=white]
-		\thesection\quad#1\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}章の最初へ}\else \fi
+		\thesection\quad#1\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}\faIcon{reply}}\else \fi
 	\end{tcolorbox}
 }[]
 \titleformat{\subsection}[display]{\normalfont\large\bfseries}{}{0pt}{
-	\tcbox[enhanced,arc=0pt,coltext=red!30!black,
-		drop fuzzy shadow,frame style image=crinklepaper.png,interior hidden]
+	\tcbox[enhanced,arc=0pt,coltext=red!30!black,size=title,drop fuzzy shadow,frame style image=crinklepaper.png,interior hidden]
 		{\thesubsection\quad#1}
 }[]
-\titlespacing{\chapter}{0pt}{-1em}{25pt}%abovedawn
-\titlespacing{\section}{0pt}{-6mm}{-6mm}
-\titlespacing{\subsection}{0pt}{-6mm}{-6mm}
+\titleformat{name=\section,numberless}[display]{\normalfont\large\bfseries}{}{0pt}{
+	\begin{tcolorbox}[enhanced,drop fuzzy shadow south,arc=2mm,
+		frame style image=blueshade.png,interior hidden,coltext=white]
+		#1\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}\faIcon{reply}}\else \fi
+	\end{tcolorbox}
+}[]
+\titleformat{name=\subsection,numberless}[display]{\normalfont\large\bfseries}{}{0pt}{
+	\tcbox[enhanced,arc=0pt,coltext=red!30!black,size=title,drop fuzzy shadow,frame style image=crinklepaper.png,interior hidden]
+	{#1}
+}[]
+\titlespacing{\chapter}{0pt}{-1em}{30pt}%abovedawn
+\titlespacing{\section}{0pt}{-1.5em}{-1.5em}
+\titlespacing{\subsection}{0pt}{-2em}{-2em}
 }
 %
 \DeclareOption{sec=2}{
@@ -82,7 +91,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		(0,2) -- (\linewidth,2);
 		\node at (\linewidth/2,1) {#1};
 		\node at (\linewidth/2,2.8) {第\thechapter 章};
-		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi};
+		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi};
 	\end{tikzpicture}}{-1em}{}[
 \if@ptc{\PartialToc}\else \fi]
 \titleformat{\section}[hang]{\Large\bfseries}{\begin{tikzpicture}
@@ -93,7 +102,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth-3pt,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node at (\linewidth/2,0.5) {\thesection~~#1};
-		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji\thechapter}{\color{magenta}章の最初に戻る}\else \fi};
+		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji\thechapter}{\color{magenta}\faIcon{reply}}\else \fi};
 	\end{tikzpicture}
 }{-7pt}{}[]
 \titleformat{\subsection}[hang]{\normalfont\large\bfseries}{\thesubsection}{1em}{
@@ -106,7 +115,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth-3pt,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {#1};
-		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji\thechapter}{\color{magenta}章の最初に戻る}\else \fi};
+		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji\thechapter}{\color{magenta}\faIcon{reply}}\else \fi};
 	\end{tikzpicture}
 }{-7pt}{}[]
 \titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{
@@ -191,7 +200,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 	\sethead{\begin{tikzpicture}[remember picture,overlay]
 			\fill[top color=green!60!] (current page.north east) rectangle ([yshift=-\paperwidth/8]current page.north west);
 			\fill[bottom color=yellow!60!,top color=white] (current page.south east) rectangle ([yshift=\paperwidth/8]current page.south west);
-	\end{tikzpicture}}{\S\,\thesection\quad\sectiontitle}{}
+	\end{tikzpicture}}{第\thechapter 章\quad\chaptertitle}{}
 	\setfoot{}{\large\thepage}{}
 }
 \newpagestyle{normalps}[]{
