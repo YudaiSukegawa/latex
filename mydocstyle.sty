@@ -30,8 +30,8 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \DeclareOption{withlink}{\@linktrue}
 
 \DeclareOption{sec=normal}{
-	\titleformat{\section}[hang]{\normalfont\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi}[]
-	\titleformat{name=\section,numberless}[hang]{\normalfont\large\bfseries}{#1}{0pt}{\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi}[]
+	\titleformat{\section}[hang]{\normalfont\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi}[]
+	\titleformat{name=\section,numberless}[hang]{\normalfont\large\bfseries}{#1}{0pt}{\hfill\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi}[]
 }
 
 \DeclareOption{sec=1}{
@@ -40,7 +40,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 			frame style={left color=black,right color=cyan!60!},coltext=white,interior hidden,
 			fuzzy shadow={0mm}{-1mm}{-1.5mm}{0.4mm}{black},borderline horizontal={3pt}{0pt}{black},
 			borderline north={2pt}{6pt}{black},borderline south={2pt}{6pt}{black}]
-			\hspace*{0.14\paperwidth}\thesection~~#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi
+			\hspace*{0.14\paperwidth}\thesection~~#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi
 		\end{tcolorbox}
 	}[]
 	\titleformat{\subsection}[display]{\normalfont\large\bfseries}{}{0pt}{
@@ -56,7 +56,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 			frame style={left color=white,right color=yellow!50!gray!60!white},interior hidden,
 			borderline horizontal={3pt}{0pt}{black},
 			borderline north={2pt}{6pt}{black},borderline south={2pt}{6pt}{black}]
-			\hspace*{0.14\paperwidth}#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi
+			\hspace*{0.14\paperwidth}#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi
 		\end{tcolorbox}
 	}[]
 	\titleformat{name=\subsection,numberless}[display]{\normalfont\large\bfseries}{}{0pt}{
@@ -80,7 +80,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth-3pt,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {\thesection~~#1};
-		\node at (\linewidth-2em,0.5) {\small \if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi};
+		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi};
 	\end{tikzpicture}
 }{-7pt}{}[]
 \titleformat{\subsection}[hang]{\normalfont\large\bfseries}{}{0pt}{
@@ -94,7 +94,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\filldraw[line width=3pt,draw=cyan!\tmp!magenta!\tmq!yellow,fill=white,rounded corners] (0,0) rectangle (\linewidth-3pt,1);
 		\tikzling[xshift=1.5em,yshift=0.1mm,scale=0.4,graduate=black,tassel=red]
 		\node[] at (\linewidth/2,0.5) {#1};
-		\node at (\linewidth-2em,0.5) {\small \if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi};
+		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi};
 	\end{tikzpicture}
 }{-7pt}{}[]
 \titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{}{0pt}{#1}[]
