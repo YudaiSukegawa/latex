@@ -39,19 +39,39 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \DeclareOption{withlink}{\@linktrue}
 %
 \DeclareOption{sec=normal}{
-	\titleformat{\chapter}[display]{\huge\bfseries}{第\thechapter 章}{1ex}{#1}[]
-	\titleformat{\section}[hang]{\normalfont\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi}[]
-	\titleformat{name=\section,numberless}[hang]{\normalfont\large\bfseries}{#1}{0pt}{\hfill\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi}[]
+\titleformat{\chapter}[display]{\huge\bfseries}{\hypertarget{mokuji\thechapter}{}第\thechapter 章}{1ex}{#1\hfill\if@link \hyperlink{mokuji}{\footnotesize\color{magenta}目次へ戻る}\else \fi}[\if@ptc{\PartialToc}\else \fi]
+\titleformat{\section}[hang]{\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}章の最初へ}\else \fi}[]
+\titleformat{name=\section,numberless}[hang]{\large\bfseries}{#1}{0pt}{\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}章の最初へ}\else \fi}[]
 }
 %
 \DeclareOption{sec=1}{
-
-\titlespacing{\section}{0pt}{-2em}{-2em}
-\titlespacing{\subsection}{0pt}{-2em}{-2em}
+\titleformat{\chapter}[display]{\normalfont\huge\bfseries}{}{0pt}{\hypertarget{mokuji\thechapter}{}
+	\begin{tcolorbox}[enhanced,top=10mm,bottom=10mm,spread sidewards,
+		drop fuzzy shadow south,frame style image=goldshade.png,
+		interior hidden,borderline horizontal={4pt}{0pt}{black},
+		borderline north={2pt}{6pt}{black},borderline south={2pt}{6pt}{black}]
+		\centering 第\thechapter 章\\\bigskip#1\if@link \\\vspace{-1em}\hfill\hyperlink{mokuji}{\footnotesize\color{magenta}目次へ戻る}\else\fi
+	\end{tcolorbox}
+\vspace{-2em}}[\if@ptc{\PartialToc}\else \fi]
+\titleformat{\section}[display]{\normalfont\large\bfseries}{}{0pt}{
+	\begin{tcolorbox}[enhanced,drop fuzzy shadow south,arc=2mm,
+		frame style image=blueshade.png,interior hidden,coltext=white]
+		\thesection\quad#1\hfill\if@link \hyperlink{mokuji\thechapter}{\footnotesize\color{magenta}章の最初へ}\else \fi
+	\end{tcolorbox}
+}[]
+\titleformat{\subsection}[display]{\normalfont\large\bfseries}{}{0pt}{
+	\tcbox[enhanced,arc=0pt,coltext=red!30!black,
+		drop fuzzy shadow,frame style image=crinklepaper.png,interior hidden]
+		{\thesubsection\quad#1}
+}[]
+\titlespacing{\chapter}{0pt}{-1em}{25pt}%abovedawn
+\titlespacing{\section}{0pt}{-6mm}{-6mm}
+\titlespacing{\subsection}{0pt}{-6mm}{-6mm}
 }
 %
 \DeclareOption{sec=2}{
-\titleformat{\chapter}[hang]{\huge\bfseries}{\begin{tikzpicture}
+\titleformat{\chapter}[display]{\huge\bfseries}{\hypertarget{mokuji\thechapter}{}
+\centering\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
 		\edef\tmp{\pgfmathresult}
 		\pgfmathparse{100*sin(rnd*pi/2 r)}
@@ -63,7 +83,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\node at (\linewidth/2,1) {#1};
 		\node at (\linewidth/2,2.8) {第\thechapter 章};
 		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji}{\color{magenta}目次へ戻る}\else \fi};
-\end{tikzpicture}}{-1em}{\hypertarget{mokuji\thechapter}{}}[
+	\end{tikzpicture}}{-1em}{}[
 \if@ptc{\PartialToc}\else \fi]
 \titleformat{\section}[hang]{\Large\bfseries}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
@@ -76,9 +96,8 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji\thechapter}{\color{magenta}章の最初に戻る}\else \fi};
 	\end{tikzpicture}
 }{-7pt}{}[]
-\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{}{0pt}{
-\thesubsection\quad#1
-}[]
+\titleformat{\subsection}[hang]{\normalfont\large\bfseries}{\thesubsection}{1em}{
+#1}[]
 \titleformat{name=\section,numberless}[hang]{\Large\bfseries}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
 		\edef\tmp{\pgfmathresult}
@@ -90,12 +109,13 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 		\node at (\linewidth-2em,0.5) {\footnotesize\if@link \hyperlink{mokuji\thechapter}{\color{magenta}章の最初に戻る}\else \fi};
 	\end{tikzpicture}
 }{-7pt}{}[]
-\titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{}{0pt}{#1}[]
-\titlespacing{\section}{0pt}{4mm}{2mm}
+\titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{
+	\thesubsection}{1em}{#1}[]
+\titlespacing{\section}{0pt}{6mm}{0mm}
 }
 %
 \DeclareOption{toc=normal}{
-\renewcommand{\tableofcontents}[1][c]{%
+\renewcommand{\tableofcontents}[1][c]{\thispagestyle{mokuji}
 \hypertarget{mokuji}{}\noindent\makebox[\linewidth][#1]{\LARGE\bfseries 目次}
 \bigskip\@starttoc{toc}\bigskip}
 }
@@ -104,7 +124,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \renewcommand{\PartialToc}{\normalsize\normalfont\begin{shapebox2}[yellow]{目次}"Contents"[drop fuzzy shadow,breakable]
 		\startcontents[chapters]
 		\printcontents[chapters]{}{1}[2]{}\end{shapebox2}\vspace{-3em}}
-\renewcommand{\tableofcontents}[1][orange]{%
+\renewcommand{\tableofcontents}[1][orange]{\thispagestyle{mokuji}
 \hypertarget{mokuji}{}\begin{shapebox2}[#1]{目次}"Contents"[drop fuzzy shadow,breakable]
 \@starttoc{toc}\end{shapebox2}}
 }
@@ -162,7 +182,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \crefmultiformat{subsubsection}{#2#1#3{節}}{, #2#1#3{節}}{, #2#1#3}{, #2#1#3{節}}%
 
 \newpagestyle{ps=2}[]{
-	\sethead{}{}{}
+	\sethead{}{第\thechapter 章\quad\chaptertitle}{}
 	\setfoot{}{\raisebox{-1em}{\begin{tikzpicture}
 			\tikzling[scale=0.5,speech={\thepage}]
 	\end{tikzpicture}}}{}
@@ -175,9 +195,13 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 	\setfoot{}{\large\thepage}{}
 }
 \newpagestyle{normalps}[]{
-	\sethead{}{\thesection~~\sectiontitle}{}
+	\sethead{}{\thechapter~~\chaptertitle}{}
 	\headrule\footrule
 	\setfoot{}{\thepage}{}
+}
+\newpagestyle{mokuji}[\large]{
+	\sethead{}{}{}
+	\setfoot{}{\roman{page}}{}
 }
 
 \newcommand*{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
