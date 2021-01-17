@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 %\ProvidesClass{ltjsarticle}
 \ProvidesPackage{YSdocstyle}
-
+%
 \RequirePackage{luatexja}
 \RequirePackage[truedimen,margin=0.14\paperwidth]{geometry}
 \RequirePackage[luatex]{graphicx}
@@ -16,8 +16,8 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \DeclareCaptionLabelSeparator{colon}{：}
 \RequirePackage[subrefformat=parens]{subcaption}
 \RequirePackage{wrapfig}
-\RequirePackage{comment,fontawesome5}
-
+\RequirePackage{comment,fontawesome5,xparse}
+%
 \RequirePackage{tcolorbox,tikzlings}
 \tcbuselibrary{raster,skins,xparse,breakable}
 \usetikzlibrary{shadings,calc}
@@ -26,14 +26,29 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \RequirePackage{titletoc}
 \newif\if@link
 \@linkfalse
-
+\DeclareTColorBox{shapebox2}{ O{blue} m d"" !O{} }{enhanced,colframe=#1!50!black,colback=#1!10!white,
+	colbacktitle=#1!5!yellow!10!white, fonttitle=\large\bfseries,coltitle=black,IfValueTF={#3}{watermark text={#3}}{},
+	attach boxed title to top center= {yshift=-0.25mm-\tcboxedtitleheight/2,yshifttext=2mm-\tcboxedtitleheight/2}, 
+	boxed title style={boxrule=0.5mm, frame code={ \path[tcb fill frame] ([xshift=-6mm]frame.west) -- (frame.north west) -- (frame.north east) -- ([xshift=6mm]frame.east) -- (frame.south east) -- (frame.south west) -- cycle; }, 
+		interior code={ \path[tcb fill interior] ([xshift=-3mm]interior.west) -- (interior.north west) -- (interior.north east) -- ([xshift=3mm]interior.east) -- (interior.south east) -- (interior.south west) -- cycle;} },
+	title={#2},#4}
+%
+\DeclareOption{pluspack}{
+\usepackage[version-1-compatibility]{siunitx}
+\sisetup{range-phrase=～,list-final-separator={,},list-pair-separator={,}}
+\usepackage{ulem,bm}
+\usepackage[version=4]{mhchem}
+\usepackage[at]{easylist}
+\usepackage[shortlabels]{enumitem}
+}
+%
 \DeclareOption{withlink}{\@linktrue}
-
+%
 \DeclareOption{sec=normal}{
 	\titleformat{\section}[hang]{\normalfont\large\bfseries}{\thesection}{1em}{#1\hfill\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi}[]
 	\titleformat{name=\section,numberless}[hang]{\normalfont\large\bfseries}{#1}{0pt}{\hfill\if@link \hyperlink{mokuji}{\color{magenta}\faIcon{reply-all}}\else \fi}[]
 }
-
+%
 \DeclareOption{sec=1}{
 	\titleformat{\section}[display]{\normalfont\Large\bfseries}{}{0pt}{
 		\begin{tcolorbox}[enhanced,top=3mm,bottom=3mm,spread sidewards,
@@ -70,7 +85,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \titlespacing{\section}{0pt}{-2em}{-2em}
 \titlespacing{\subsection}{0pt}{-2em}{-2em}
 }
-
+%
 \DeclareOption{sec=2}{
 \titleformat{\section}[hang]{\Large\bfseries}{\begin{tikzpicture}
 		\pgfmathparse{100*rnd}
@@ -100,32 +115,26 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \titleformat{name=\subsection,numberless}[hang]{\normalfont\large\bfseries}{}{0pt}{#1}[]
 \titlespacing{\section}{0pt}{4mm}{2mm}
 }
-
+%
 \DeclareOption{toc=normal}{
 \renewcommand{\tableofcontents}[1][c]{%
 \hypertarget{mokuji}{}\noindent
 \makebox[\linewidth][#1]{\Large\bfseries 目次}\bigskip\@starttoc{toc}\bigskip}
 }
-
+%
 \DeclareOption{toc=1}{
-\DeclareTColorBox{shapebox2}{ O{blue} m d"" !O{} }{enhanced,colframe=#1!50!black,colback=#1!10!white,
-	colbacktitle=#1!5!yellow!10!white, fonttitle=\large\bfseries,coltitle=black,IfValueTF={#3}{watermark text={#3}}{},
-	attach boxed title to top center= {yshift=-0.25mm-\tcboxedtitleheight/2,yshifttext=2mm-\tcboxedtitleheight/2}, 
-	boxed title style={boxrule=0.5mm, frame code={ \path[tcb fill frame] ([xshift=-6mm]frame.west) -- (frame.north west) -- (frame.north east) -- ([xshift=6mm]frame.east) -- (frame.south east) -- (frame.south west) -- cycle; }, 
-		interior code={ \path[tcb fill interior] ([xshift=-3mm]interior.west) -- (interior.north west) -- (interior.north east) -- ([xshift=3mm]interior.east) -- (interior.south east) -- (interior.south west) -- cycle;} },
-	title={#2},#4}
 \renewcommand{\tableofcontents}[1][orange]{%
 \hypertarget{mokuji}{}\begin{shapebox2}[#1]{目次}"Contents"[drop fuzzy shadow,breakable]
 \@starttoc{toc}\end{shapebox2}}
 }
-
+%
 \ExecuteOptions{toc=normal}
 \ProcessOptions\relax
-
+%
 \titlecontents{section}[1em]{}{\makebox[2em][l]{\thecontentslabel}}{}{\quad\titlerule*[1em]{・}　\thecontentspage}
 \titlecontents{subsection}[3em]{}{\makebox[2.5em][l]{\thecontentslabel}}{}{\quad\titlerule*[1em]{・}　\thecontentspage}
 \titlecontents{subsubsection}[5.5em]{}{\makebox[3em][l]{\thecontentslabel}}{}{\titlerule*[1em]{・}　\thecontentspage}
-
+%
 \newcommand{\crefrangeconjunction}{{〜}}%
 \newcommand{\crefrangepreconjunction}{}%
 \newcommand{\crefrangepostconjunction}{}%
@@ -164,7 +173,7 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \crefformat{subsubsection}{#2#1#3{節}}%
 \crefrangeformat{subsubsection}{#3#1#4{〜}#5#2#6{節}}%
 \crefmultiformat{subsubsection}{#2#1#3{節}}{, #2#1#3{節}}{, #2#1#3}{, #2#1#3{節}}%
-
+%
 \newpagestyle{ps=2}[]{
 	\sethead{}{}{}
 	\setfoot{}{\raisebox{-1em}{\begin{tikzpicture}
@@ -183,49 +192,53 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 	\headrule\footrule
 	\setfoot{}{\thepage}{}
 }
-
+%
 \renewcommand*{\figurename}{\faIcon{arrow-circle-up}図}
 \renewcommand*{\tablename}{\faIcon{arrow-circle-down}表}
 \newcommand*{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
 \newcommand*{\sfrac}[2]{{}^{#1}\!/_{#2}}
-\newcommand{\dd}[3]{
-	\if 1#1 \frac{\mathrm{d}#2}{\mathrm{d}#3}\else{%
-		\frac{\mathrm{d}^{#1}#2}{\mathrm{d}#3^{#1}}}\fi
-}
-\newcommand{\del}[3]{
-	\ifcat a#1\frac{\partial^2 #1}{\partial#2\partial#3}\else{%
-		\ifnum #1>1\frac{\partial^{#1} #2}{\partial #3^{#1}}\else{%
-			\ifnum #1=1 \frac{\partial #2}{\partial #3}\else{%
-				\text{エラー} (最初の引数は1以上の整数) }\fi
-		}\fi%
-	}\fi
-}
+\NewDocumentCommand{\dd}{s o m m}{\IfBooleanTF{#1}{\IfValueTF{#2}{\frac{\mathrm{d}^{#2}#3}{\mathrm{d}#4^{#2}}}{\frac{\mathrm{d}#3}{\mathrm{d}#4}}}{\IfValueTF{#2}{\frac{\mathrm{d}^{#2}#3}{\mathrm{d}#4^{#2}}}{\frac{\mathrm{d}#3}{\mathrm{d}#4}}}}
+\NewDocumentCommand{\del}{s o m m}{\IfBooleanTF{#1}{\frac{\partial^2\IfValueTF{#2}{#2}{}}{\partial #3\partial #4}}{\IfValueTF{#2}{\frac{\partial^{#2} #3}{\partial #4^{#2}}}{\frac{\partial #3}{\partial #4}}}}
 \newcommand{\paren}[1]{\left(#1\right)}
 \newcommand{\curly}[1]{\left\{#1\right\}}
 \newcommand{\bracket}[1]{\left[#1\right]}
 \newcommand{\abs}[1]{\left|#1\right|}
-\newcommand{\myfig}[4][keepaspectratio,width=0.8\linewidth]{%
-	\begin{figure}[H]
-		\centering
-		\includegraphics[#1]{#2}
-		\caption{#3}\label{#4}
-	\end{figure}%
-}
-\newcommand{\doufig}[7][keepaspectratio,width=0.8\linewidth]{%
-	\begin{figure}[H]
-		\begin{minipage}[b]{0.5\linewidth}
+\newcommand{\myfig}[2]{#1#2}
+\RenewDocumentCommand{\myfig}{s O{keepaspectratio,width=0.8\linewidth} m m o}{\IfBooleanTF{#1}{\begin{figure}[htbp]
 			\centering
-			\includegraphics[#1]{#2}
-			\subcaption{#3}\label{#7a}
-		\end{minipage}
-		\begin{minipage}[b]{0.5\linewidth}
+			\includegraphics[#2]{#3}
+			\caption{#4}\IfValueT{#5}{\label{#5}}
+	\end{figure}}{\begin{figure}[H]
 			\centering
-			\includegraphics[#1]{#4}
-			\subcaption{#5}\label{#7b}
-		\end{minipage}
-		\caption{#6}\label{#7}
-	\end{figure}
-}
+			\includegraphics[#2]{#3}
+			\caption{#4}\IfValueT{#5}{\label{#5}}
+		\end{figure}}}
+\newcommand{\copfig}[3]{#1#2#3}
+\RenewDocumentCommand{\copfig}{s O{keepaspectratio,width=0.8\linewidth} m O{} m O{} m o}{\IfBooleanTF{#1}{\begin{figure}[htbp]
+			\begin{minipage}[b]{0.5\linewidth}
+				\centering
+				\includegraphics[#2]{#3}
+				\subcaption{#4}\IfValueT{#8}{\label{#8a}}
+			\end{minipage}
+			\begin{minipage}[b]{0.5\linewidth}
+				\centering
+				\includegraphics[#2]{#5}
+				\subcaption{#6}\IfValueT{#8}{\label{#8b}}
+			\end{minipage}
+			\caption{#7}\IfValueT{#8}{\label{#8}}
+	\end{figure}}{\begin{figure}[H]
+			\begin{minipage}[b]{0.5\linewidth}
+				\centering
+				\includegraphics[#2]{#3}
+				\subcaption{#4}\IfValueT{#8}{\label{#8a}}
+			\end{minipage}
+			\begin{minipage}[b]{0.5\linewidth}
+				\centering
+				\includegraphics[#2]{#5}
+				\subcaption{#6}\IfValueT{#8}{\label{#8b}}
+			\end{minipage}
+			\caption{#7}\IfValueT{#8}{\label{#8}}
+\end{figure}}}
 \newcommand{\wrapfig}[5][]{%
 	\begin{wrapfigure}{r}[0cm]{#2}
 		\centering
