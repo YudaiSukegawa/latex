@@ -1,6 +1,6 @@
-# latex
+# LaTeX
 ## 概要
-LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeXを使用している。
+LaTeXに関する色々。エンジンにLuaLaTeXを使用している。
 
 無断で使用可能。
 ## mydocstyle.sty
@@ -15,11 +15,12 @@ LaTeXに関する色々。ほぼ全てのファイルはエンジンにLuaLaTeX�
 |---|---|---|
 |sec=normal|toc=normal(default)|normalps|
 |sec=1|toc=1|ps=1|
-|sec=2| |ps=2|
+|sec=2|toc=2|ps=2|
 #### 補足
 - toc=normalオプションでは見出しの「目次」の表示位置を変えることができる。`\tableofcontents[pos]`
 posはl(left),c(center,default),r(right)から選択する。
 - toc=1オプションでは目次の色を変えることができる。`\tableofcontents[color]`
+- toc=2オプションでは目次を二段組にする。間のスペースはパラメータ`\columnsep`、線はパラメータ`\columnseprule`で調節可能。
 ### その他のオプション
 1. withlink  
 見出しの横に目次ページへのリンクを設置。
