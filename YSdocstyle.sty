@@ -7,7 +7,7 @@
 \RequirePackage[luatex]{graphicx}
 \RequirePackage[luatex,table,hyperref]{xcolor}
 \RequirePackage{amssymb,mathtools}
-\RequirePackage{float}
+\RequirePackage{float,adjmulticol}
 \RequirePackage[unicode=true,linktoc=all,%
 bookmarksnumbered=true,bookmarksopen=true,%
 colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
@@ -126,6 +126,33 @@ colorlinks=true,linkcolor=blue,citecolor=red]{hyperref}
 \renewcommand{\tableofcontents}[1][orange]{%
 \hypertarget{mokuji}{}\begin{shapebox2}[#1]{目次}"Contents"[drop fuzzy shadow,breakable]
 \@starttoc{toc}\end{shapebox2}}
+}
+%
+\DeclareOption{toc=2}{
+	\hypersetup{linktoc=page}
+	\setcounter{tocdepth}{2}
+	\titlecontents{cchapter}[2em]{\thispagestyle{mokuji}\large}{\hspace*{\fill}\thecontentslabel\quad}{}{\hspace*{\fill}}[]
+	\titlecontents{section}[-2em]{}{\makebox[2cm]{\thecontentslabel}}{}{\titlerule*{.}\thecontentspage}
+	\titlecontents{subsection}[0em]{}{\makebox[2cm]{\thecontentslabel}}{}{\titlerule*{.}\thecontentspage}
+	\def\@starttoc#1{%
+		\begingroup
+		\makeatletter
+		\begin{adjmulticols}{1}{-1em}{-1em}
+			\@input{\jobname.#1}\thispagestyle{mokuji}%
+		\end{adjmulticols}
+		\if@filesw
+		\expandafter\newwrite\csname tf@#1\endcsname
+		\immediate\openout \csname tf@#1\endcsname \jobname.#1\relax
+		\fi
+		\@nobreakfalse
+		\endgroup}
+	\renewcommand{\tableofcontents}{%
+		\hypertarget{mokuji}{}\begin{center}\LARGE\bfseries 目次\end{center}
+		\@starttoc{toc}}
+	\renewcommand{\l@chapter}[2]{\end{adjmulticols}
+	\l@cchapter{#1}{#2}\begin{adjmulticols}{2}{-1em}{-1em}}
+	\columnseprule=.4pt
+	\columnsep=-10pt
 }
 %
 \ExecuteOptions{toc=normal}
